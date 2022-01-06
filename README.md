@@ -7,8 +7,8 @@
 
 ---
 
-## templateによる画像読み込み
-### static/janken.html
+# templateによる画像読み込み
+## static/janken.html
 
 ```html
 <h1>じゃんけん</h1>
@@ -22,7 +22,7 @@
 ```
 <br>
 
-### static/janken.pay
+## static/janken.py
 ```python
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # ～ ～ 途中割愛 ～ ～
@@ -38,6 +38,40 @@ def img(filepath):
     return static_file(filepath, root=f"{STATIC_DIR}\img")
 
 ```
+---
+
+# templateによる画像読み込み
+## static/janken.html
+
+```html
+<ul>
+    <li><a href="/?choice=0"><img src="/static/img/gu.png" alt=""></a></li>
+    <li><a href="/?choice=1"><img src="/static/img/choki.png" alt=""></a></li>
+    <li><a href="/?choice=2"><img src="/static/img/pa.png" alt=""></a></li>
+</ul>
+```
+<br>
+
+## static/janken.py
+
+```python
+def index():
+    data = request.query.choice
+
+```
+
+---
+
+# ランダムでPCのじゃんけんの手を決める
+## 以下の作業をjanken.pyでおこなってください
+
+-下記のPC用画像ファイル名をリストに入れる
+    -'gu_female.png', 'choki_female.png', 'pa_female.png'
+
+-ランダムで0，1，2の数字を生成する
+
+
+
 
 
 #### 今が13時の場合
