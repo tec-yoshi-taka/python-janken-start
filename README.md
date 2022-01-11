@@ -1,7 +1,5 @@
 
 # Bottleでじゃんけんゲーム
-
-## スライド資料
 <br>
 
 ---
@@ -37,6 +35,7 @@ def img(filepath):
     return static_file(filepath, root=f"{STATIC_DIR}\img")
 
 ```
+
 ---
 
 # クリックしたら情報を送る
@@ -49,28 +48,90 @@ def img(filepath):
     <li><a href="/?choice=2"><img src="/static/img/pa.png" alt=""></a></li>
 </ul>
 ```
+
 <br>
+
+---
 
 # HTMLからの情報を受け取る
 ## static/janken.py
 
 ```python
 def index():
-    data = request.query.choice
+    choice = request.query.choice
 
 ```
 
+<br>
+
 ---
 
-# ランダムでPCのじゃんけんの手を決める
+# PC側のじゃんけんの準備
+## def index 実行前
+
+- 下記のPC用画像ファイル名をリストpc_imgに入れる
+
+    - 'gu_female.png', 'choki_female.png', 'pa_female.png'
+
+<br>
+
+- def index 内でじゃけんの処理
+  - ランダムで0，1，2の数字を生成する
+
+<br>
+
+---
+
+# 【演習】じゃんけんの勝敗を表示する
 ## 以下の作業をjanken.pyでおこなってください
 
--下記のPC用画像ファイル名をリストに入れる
-    -'gu_female.png', 'choki_female.png', 'pa_female.png'
+- じゃんけんアルゴリズムをつかって、ユーザの手とPCの手で勝敗を確認してください
+    - 勝敗の結果を 変数 data に格納してください
+        -ユーザが勝った場合 → あなたの勝ち
+        -ユーザが負けた場合 → あなたの負け
+        -あいこの場合 → あいこ
 
--ランダムで0，1，2の数字を生成する
+<br>
 
+- PC画像をランダムの数値に合わせて変更してください
 
+<br>
 
+- dataをtemplateの戻り値でHTMLに返し、HTML側で表示します
 
+<br>
 
+---
+
+# ユーザ側の手の画像変更（CSS）
+## CSSをPythonから変更できるようにするためにhtmlを修正
+
+```html
+<ul>
+    <li><a href="/?choice=0"></a><img src="/static/img/gu.png" alt="" style="{{result[0]}}"></a></li>
+    <li><a href="/?choice=1"><img src="/static/img/choki.png" alt="" style="{{result[1]}}"></a></li>
+    <li><a href="/?choice=2"><img src="/static/img/pa.png" alt="" style="{{result[2]}}"></a></li>
+</ul>
+```
+
+## Python側でresultを初期化
+
+```python
+result = ["","",""]
+@route("/")
+def index():
+```
+
+## 繰り返しじゃんけんをする際の初期化と値の追加
+
+```python
+else:
+    result[0] = result[1] = result[2] = ""
+    user = int(choice)
+    result[user] = "opacity:1;transform:scale(1.2);"
+```
+
+## 結果をtemplateで送信
+```python
+return template('janken', data = data, female = female, result = result)
+```
