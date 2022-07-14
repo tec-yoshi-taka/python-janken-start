@@ -19,7 +19,7 @@
 ```
 <br>
 
-## static/janken.py
+## janken.py
 ```python
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # ～ ～ 途中割愛 ～ ～
@@ -54,7 +54,7 @@ def img(filepath):
 ---
 
 # HTMLからの情報を受け取る
-## static/janken.py
+## janken.py
 
 ```python
 def index():
@@ -108,7 +108,7 @@ def index():
 
 ```html
 <ul>
-    <li><a href="/?choice=0"></a><img src="/static/img/gu.png" alt="" style="{{result[0]}}"></a></li>
+    <li><a href="/?choice=0"><img src="/static/img/gu.png" alt="" style="{{result[0]}}"></a></li>
     <li><a href="/?choice=1"><img src="/static/img/choki.png" alt="" style="{{result[1]}}"></a></li>
     <li><a href="/?choice=2"><img src="/static/img/pa.png" alt="" style="{{result[2]}}"></a></li>
 </ul>
